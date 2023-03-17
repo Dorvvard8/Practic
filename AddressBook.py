@@ -7,7 +7,7 @@ import pickle
 class AddressBook(UserDict):
     def __init__(self):
         self.data = {}
-        self.backup_file = 'data.bin'
+        self.backup_file = 'backup.bin'
 
     def add_record(self, record):
         self.data.update(Record.add(record))
