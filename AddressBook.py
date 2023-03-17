@@ -25,14 +25,16 @@ class AddressBook(UserDict):
 
         for k, v in self.data.items():
 
-            if k.rfind(search_word) >= 0:  # Search by key (name)
-                return f'Search by {search_word}": {v.name.value}, {v.phones.value}, {v.bday.value}'
-
-            else:
+            if search_word.isnumeric():
 
                 for phone in v.phones.value:  # Search by value (phone)
                     if phone.rfind(search_word) >= 0:
-                        return f"Search by {search_word}: {v.name.value}, {v.phones.value}, {v.bday.value}"
+                        return f'Search by "{search_word}": {v.name.value}, {v.phones.value}, {v.bday.value}'
+
+            else:
+
+                if k.rfind(search_word) >= 0:  # Search by key (name)
+                    return f'Search by "{search_word}": {v.name.value}, {v.phones.value}, {v.bday.value}'
 
     def save(self):
         with open(self.backup_file, "wb") as file:

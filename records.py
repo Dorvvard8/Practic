@@ -73,8 +73,6 @@ class Record():
     def __init__(self, name: Name, phone: Phone = None, bday: Birthday = None):
         self.name = name
         self.phones = phone
-        # if phone.value:
-        #     self.phones.append(phone)
         self.bday = bday
 
     def days_to_birthday(self):

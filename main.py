@@ -7,7 +7,6 @@ if __name__ == '__main__':
     ab = AddressBook()
     name = Name('Bill')
     phone = Phone()
-    phone.value = ""
     phone.value = "+380977777777 +380977771234"
     bday = Birthday()
     bday.value = '23-01-2009'
@@ -24,7 +23,7 @@ if __name__ == '__main__':
     ab.add_record(record)
 
     # Pagination
-    next(ab.iterator(2))
+    print(next(ab.iterator(2)))
 
     # Save contacts to file
     ab.save()
@@ -33,7 +32,7 @@ if __name__ == '__main__':
     ab = ab.load()
 
     # Find contact by phone
-    ab.find("777")
+    print(ab.find("777"))
 
     # Find contact by name
-    ab.find("Ja")
+    print(ab.find("Ja"))
