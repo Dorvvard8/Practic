@@ -44,4 +44,10 @@ if __name__ == '__main__':
     print(ab.find("test", "email"))
 
     # Find contact by name
-    print(ab.find("Ja"), "name")
+    print(ab.find("Ja", "name"))
+
+    # Edit contact
+    ab.data["Bill"].edit("phone", "+380978776543")
+    ab.data["Bill"].edit("birthday", "01-01-1980")
+    ab.data["Bill"].edit("email", "blabla@mail.com")
+    ab.data["Bill"].edit("address", "new address")

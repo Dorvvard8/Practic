@@ -111,5 +111,12 @@ class Record():
     def delete(self):
         del self.phones
 
-    def edit(self, phone):
-        self.phones[0].value = phone
+    def edit(self, value, new_value):
+        if value == "phone":
+            self.phones.value = new_value
+        elif value == "birthday":
+            self.bday.value = new_value
+        elif value == "email":
+            self.email.value = new_value
+        elif value == "address":
+            self.address.value = new_value
