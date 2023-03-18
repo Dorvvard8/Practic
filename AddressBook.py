@@ -21,20 +21,22 @@ class AddressBook(UserDict):
             else:
                 yield result_list[:contacts_count]
 
-    def find(self, search_word):
-
+    def find(self, search_word) -> dict:
+        result = {}
         for k, v in self.data.items():
 
             if search_word.isnumeric():
 
                 for phone in v.phones.value:  # Search by value (phone)
                     if phone.rfind(search_word) >= 0:
-                        return f'Search by "{search_word}": {v.name}, {v.phones}, {v.bday}'
+                        result[k] = v
 
             else:
 
                 if k.rfind(search_word) >= 0:  # Search by key (name)
-                    return f'Search by "{search_word}": {v.name.value}, {v.phones.value}, {v.bday.value}'
+                    result[k] = v
+
+        return result
 
     def save(self):
         with open(self.backup_file, "wb") as file:
