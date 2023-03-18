@@ -13,7 +13,7 @@ class Name(Field):
         self.value = name
 
     def __repr__(self):
-        return f"{self.value}"
+        return self.value
 
 
 class Phone(Field):
@@ -81,12 +81,21 @@ class Email(Field):
             print('Incorrect email! Please Try again!')
 
 
+class Address(Field):
+    def __init__(self, address=None):
+        self.value = address
+
+    def __repr__(self):
+        return self.value
+
+
 class Record():
-    def __init__(self, name: Name, phone: Phone = None, bday: Birthday = None, email: Email = None):
+    def __init__(self, name: Name, phone: Phone = None, bday: Birthday = None, email: Email = None, address: Address = None):
         self.name = name
         self.phones = phone
         self.bday = bday
         self.email = email
+        self.address = address
 
     def days_to_birthday(self):
         if self.bday.value != None:
