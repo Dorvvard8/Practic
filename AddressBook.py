@@ -21,19 +21,25 @@ class AddressBook(UserDict):
             else:
                 yield result_list[:contacts_count]
 
-    def find(self, search_word) -> dict:
+    def find(self, search_word, category) -> dict:
         result = {}
+
         for k, v in self.data.items():
 
-            if search_word.isnumeric():
+            if category == 'phone':
 
-                for phone in v.phones.value:  # Search by value (phone)
-                    if phone.rfind(search_word) >= 0:
+                for i in v.phones.value:  # Search by value - phone
+                    if i.rfind(search_word) >= 0:
                         result[k] = v
 
-            else:
+            elif category == 'name':
 
-                if k.rfind(search_word) >= 0:  # Search by key (name)
+                if k.rfind(search_word) >= 0:  # Search by key - name
+                    result[k] = v
+
+            elif category == 'email':
+
+                if v.email.value.rfind(search_word) >= 0:  # Search by value - email
                     result[k] = v
 
         return result

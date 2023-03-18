@@ -37,8 +37,11 @@ if __name__ == '__main__':
     # Load contacts from file
     ab = ab.load()
 
-    # Find contact by phone
-    print(ab.find("777"))
+    # Find contact by email
+    print(ab.find("777", "phone"))
+
+    # Find contact by email
+    print(ab.find("test", "email"))
 
     # Find contact by name
-    print(ab.find("Ja"))
+    print(ab.find("Ja"), "name")
