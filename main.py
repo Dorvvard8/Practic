@@ -47,7 +47,11 @@ if __name__ == '__main__':
     print(ab.find("Ja", "name"))
 
     # Edit contact
-    ab.data["Bill"].edit("phone", "+380978776543")
+    ab.data["Bill"].edit("phone", "")
     ab.data["Bill"].edit("birthday", "01-01-1980")
     ab.data["Bill"].edit("email", "blabla@mail.com")
     ab.data["Bill"].edit("address", "new address")
+
+    ab.delete("Bill")
+
+    print("The end")

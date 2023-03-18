@@ -26,8 +26,11 @@ class Phone(Field):
 
     @value.setter
     def value(self, phones):
+
         if not phones:
+            self.__value = []
             return
+
         try:
             for number in phones.split(' '):
                 if re.match('^\\+38\d{10}$', number.strip()):
@@ -48,6 +51,11 @@ class Birthday(Field):
 
     @value.setter
     def value(self, bday):
+
+        if not bday:
+            self.__value = None
+            return
+
         try:
             datetime_obj = datetime.strptime(bday, "%d-%m-%Y")
         except ValueError:
@@ -66,8 +74,11 @@ class Email(Field):
 
     @value.setter
     def value(self, email):
+
         if not email:
+            self.__value = None
             return
+
         try:
             if re.match('^(\w|\.|\_|\-)+[@](\w|\_|\-|\.)+[.]\w{2,3}$', email):
                 self.__value = email
@@ -108,15 +119,16 @@ class Record():
     def add(record):
         return {record.name.value: record}
 
-    def delete(self):
-        del self.phones
-
-    def edit(self, value, new_value):
-        if value == "phone":
+    def edit(self, parameter, new_value):
+        if parameter == "phone":
             self.phones.value = new_value
-        elif value == "birthday":
+            print("Phone has been edited")
+        elif parameter == "birthday":
             self.bday.value = new_value
-        elif value == "email":
+            print("Birthday has been edited")
+        elif parameter == "email":
             self.email.value = new_value
-        elif value == "address":
+            print("Email has been edited")
+        elif parameter == "address":
             self.address.value = new_value
+            print("Address has been edited")

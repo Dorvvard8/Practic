@@ -11,6 +11,7 @@ class AddressBook(UserDict):
 
     def add_record(self, record):
         self.data.update(Record.add(record))
+        print("Contact has been added")
 
     def iterator(self, n):
         result_list = list(self.data.items())
@@ -42,7 +43,10 @@ class AddressBook(UserDict):
                 if v.email.value.rfind(search_word) >= 0:  # Search by value - email
                     result[k] = v
 
-        return result
+        if result:
+            return result
+
+        print("Contact not found")
 
     def save(self):
         with open(self.backup_file, "wb") as file:
@@ -53,3 +57,11 @@ class AddressBook(UserDict):
             backup = pickle.load(file)
 
         return backup
+
+    def delete(self, name):
+        try:
+            del self.data[name]
+        except NameError:
+            print("Contact not found")
+        else:
+            print(f"Cantact '{name}' has been deleted")
