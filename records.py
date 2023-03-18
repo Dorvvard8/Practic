@@ -4,18 +4,15 @@ from datetime import date, datetime
 import re
 
 
-class Field(ABC):
-
-    @abstractmethod
-    def __getitem__(self):
-        pass
+class Field():
+    pass
 
 
 class Name(Field):
     def __init__(self, name):
         self.value = name
 
-    def __getitem__(self):
+    def __repr__(self):
         return f"{self.value}"
 
 
@@ -44,9 +41,6 @@ class Phone(Field):
             else:
                 break
 
-    def __getitem__(self):
-        return f"{self.value}"
-
 
 class Birthday(Field):
     def __init__(self, bday=None):
@@ -65,15 +59,34 @@ class Birthday(Field):
         else:
             self.__value = datetime_obj.date()
 
-    def __getitem__(self):
-        return f"{self.value}"
+
+class Email(Field):
+    def __init__(self, email=None):
+        self.__value = None
+
+    @property
+    def value(self):
+        return self.__value
+
+    @value.setter
+    def value(self, email):
+        if not email:
+            return
+        try:
+            if re.match('^(\w|\.|\_|\-)+[@](\w|\_|\-|\.)+[.]\w{2,3}$', email):
+                self.__value = email
+            else:
+                raise ValueError
+        except ValueError:
+            print('Incorrect email! Please Try again!')
 
 
 class Record():
-    def __init__(self, name: Name, phone: Phone = None, bday: Birthday = None):
+    def __init__(self, name: Name, phone: Phone = None, bday: Birthday = None, email: Email = None):
         self.name = name
         self.phones = phone
         self.bday = bday
+        self.email = email
 
     def days_to_birthday(self):
         if self.bday.value != None:

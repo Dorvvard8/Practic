@@ -19,7 +19,9 @@ if __name__ == '__main__':
     phone.value = "+380977777777"
     bday = Birthday()
     bday.value = '23-01-2009'
-    record = Record(name, phone, bday)
+    email = Email()
+    email.value = 'test@gmail.com'
+    record = Record(name, phone, bday, email)
     ab.add_record(record)
 
     # Pagination
