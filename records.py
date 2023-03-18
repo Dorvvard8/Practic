@@ -73,9 +73,8 @@ class Email(Field):
                 self.__value = email
             else:
                 raise ValueError
-        except ValueError as error:
-            return error
-            # print('Incorrect email! Please Try again!')
+        except ValueError:
+            print('Incorrect email. Please Try again!')
 
 
 class Address(Field):
