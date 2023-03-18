@@ -28,18 +28,14 @@ class Phone(Field):
     def value(self, phones):
         if not phones:
             return
-        while True:
-            try:
-                for number in phones.split(' '):
-                    if re.match('^\\+38\d{10}$', number.strip()):
-                        self.__value.append(number)
-                    else:
-                        raise ValueError
-            except ValueError:
-                print(
-                    'Incorrect phone number format - +380xxxxxxxxx. Try again!')
-            else:
-                break
+        try:
+            for number in phones.split(' '):
+                if re.match('^\\+38\d{10}$', number.strip()):
+                    self.__value.append(number)
+                else:
+                    raise ValueError
+        except ValueError:
+            print('Incorrect phone number. Please use +380xxxxxxxxx format')
 
 
 class Birthday(Field):
@@ -55,7 +51,7 @@ class Birthday(Field):
         try:
             datetime_obj = datetime.strptime(bday, "%d-%m-%Y")
         except ValueError:
-            print("Incorrect birthday format. Please use dd-mm-yyyy format)")
+            print("Incorrect birthday. Please use dd-mm-yyyy format")
         else:
             self.__value = datetime_obj.date()
 
@@ -77,8 +73,9 @@ class Email(Field):
                 self.__value = email
             else:
                 raise ValueError
-        except ValueError:
-            print('Incorrect email! Please Try again!')
+        except ValueError as error:
+            return error
+            # print('Incorrect email! Please Try again!')
 
 
 class Address(Field):
@@ -101,11 +98,13 @@ class Record():
         if self.bday.value != None:
             today = date.today()
             next_bday = self.bday.value.replace(year=today.year)
+
             if next_bday < today:
                 next_bday = next_bday.replace(year=today.year + 1)
 
             days_to_bday = (next_bday - today).days
-            return f"{days_to_bday} days to birthday"
+
+            return days_to_bday
 
     def add(record):
         return {record.name.value: record}

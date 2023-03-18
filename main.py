@@ -19,7 +19,7 @@ if __name__ == '__main__':
     # Add contact 2
     name = Name('Jack')
     phone = Phone()
-    phone.value = "+380977777777"
+    phone.value = "+38097777777"
     bday = Birthday()
     bday.value = '23-01-2009'
     email = Email()
