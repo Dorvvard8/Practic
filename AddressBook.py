@@ -65,3 +65,22 @@ class AddressBook(UserDict):
             print("Contact not found")
         else:
             print(f"Cantact '{name}' has been deleted")
+
+    def congratulate(self, days):
+        now = date.today()
+        result = {}
+
+        for k in self.data:
+            days_to_birthday = self.data[k].days_to_birthday()
+
+            if days_to_birthday <= days:
+
+                bday_planned = now + \
+                    timedelta(days_to_birthday)
+                result[k] = bday_planned.strftime("%d-%m-%Y")
+
+        if result:
+
+            return result
+
+        print("No birthdays sheduled")

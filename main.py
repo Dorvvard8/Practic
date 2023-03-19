@@ -21,7 +21,7 @@ if __name__ == '__main__':
     phone = Phone()
     phone.value = "+38097777777"
     bday = Birthday()
-    bday.value = '23-01-2009'
+    bday.value = '23-03-2009'
     email = Email()
     email.value = 'test@gmail.com'
     address = Address('2nd Street')
@@ -33,25 +33,25 @@ if __name__ == '__main__':
 
     # Save contacts to file
     ab.save()
-
     # Load contacts from file
     ab = ab.load()
 
     # Find contact by email
     print(ab.find("777", "phone"))
-
     # Find contact by email
     print(ab.find("test", "email"))
-
     # Find contact by name
     print(ab.find("Ja", "name"))
 
-    # Edit contact
+    # Edit contact phone
     ab.data["Bill"].edit("phone", "")
+    # Edit contact birthday
     ab.data["Bill"].edit("birthday", "01-01-1980")
     ab.data["Bill"].edit("email", "blabla@mail.com")
     ab.data["Bill"].edit("address", "new address")
 
+    # Delete contact
     ab.delete("Bill")
 
-    print("The end")
+    # ab.data["Jack"].days_to_birthday()
+    print(ab.congratulate(3))
