@@ -53,5 +53,7 @@ if __name__ == '__main__':
     # Delete contact
     ab.delete("Bill")
 
-    # ab.data["Jack"].days_to_birthday()
+    # Days to birthday
+    ab.data["Jack"].days_to_birthday()
+    # Output contacts whose birthday is a specified number of days from the current date;
     print(ab.congratulate(3))
