@@ -51,9 +51,12 @@ class Notebook:
         self.read_from_file()
 
     def add_new_note(self, note: RecordNote):
+        result = []
         self.notes[self.counter+1] = note
         self.counter += 1
         self.save_to_file()
+
+        return self.counter
 
     def read_from_file(self):
         try:
@@ -76,10 +79,10 @@ class Notebook:
                 tgs = [tg.word.lower() for tg in rec.tags]
                 tags = ", ".join(tgs)
                 date = rec.date
-                result += f"id: {id_} | date: {date} | {rec.note} | tags: {tags} \n"
+                result += f"id: {id_} \n date: {date} \n tags: {tags} \n note: \n {rec.note} \n"
             return result
         else:
-            return f"Notebook is empty."
+            return f"Notebook is empty.\n"
 
     @id_exist
     def to_edit_text(self, id_, text_):
@@ -87,6 +90,7 @@ class Notebook:
 
     @id_exist
     def to_add_tags(self, id_, tags: list[str]):
+        print('id_, tags - ', id_, tags)
         self.notes[int(id_)].add_tags(tags)
 
     @id_exist

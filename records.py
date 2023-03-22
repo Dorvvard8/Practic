@@ -17,7 +17,7 @@ class Name(Field):
 
 
 class Phone(Field):
-    def __init__(self, phone=None):
+    def __init__(self, phone=''):
         self.__value = []
 
     @property
@@ -32,6 +32,7 @@ class Phone(Field):
             return
 
         try:
+            print('phones = ', phones)
             for number in phones.split(' '):
                 if re.match('^\\+38\d{10}$', number.strip()):
                     self.__value.append(number)
@@ -42,8 +43,8 @@ class Phone(Field):
 
 
 class Birthday(Field):
-    def __init__(self, bday=None):
-        self.__value = None
+    def __init__(self, bday=''):
+        self.__value = bday
 
     @property
     def value(self):
@@ -53,20 +54,20 @@ class Birthday(Field):
     def value(self, bday):
 
         if not bday:
-            self.__value = None
+            self.__value = ''
             return
-
+        bday = bday.replace('/', '.').replace('-', '.')
         try:
-            datetime_obj = datetime.strptime(bday, "%d-%m-%Y")
+            datetime_obj = datetime.strptime(bday, "%d.%m.%Y")
         except ValueError:
             print("Incorrect birthday. Please use dd-mm-yyyy format")
         else:
             self.__value = datetime_obj.date()
 
-
+        
 class Email(Field):
-    def __init__(self, email=None):
-        self.__value = None
+    def __init__(self, email=''):
+        self.__value = email
 
     @property
     def value(self):
@@ -74,13 +75,17 @@ class Email(Field):
 
     @value.setter
     def value(self, email):
-
+        print('emaillll - ', email)
         if not email:
             self.__value = None
             return
-
+        if email == '*':
+            self.__value = email
+            return
+        print('emaillll22222 - ', email)        
         try:
             if re.match('^(\w|\.|\_|\-)+[@](\w|\_|\-|\.)+[.]\w{2,3}$', email):
+                print('emaillll22222 - ', email)
                 self.__value = email
             else:
                 raise ValueError
@@ -89,7 +94,7 @@ class Email(Field):
 
 
 class Address(Field):
-    def __init__(self, address=None):
+    def __init__(self, address=''):
         self.value = address
 
     def __repr__(self):
@@ -97,17 +102,16 @@ class Address(Field):
 
 
 class Record():
-    def __init__(self, name: Name, phone: Phone = None, bday: Birthday = None, email: Email = None, address: Address = None):
+    def __init__(self, name, phone='', birthday='', address=''):
         self.name = name
         self.phones = phone
-        self.bday = bday
-        self.email = email
+        self.birthday = birthday
         self.address = address
 
     def days_to_birthday(self):
-        if self.bday.value != None:
+        if self.birthday.value != None:
             today = date.today()
-            next_bday = self.bday.value.replace(year=today.year)
+            next_bday = self.birthday.value.replace(year=today.year)
 
             if next_bday < today:
                 next_bday = next_bday.replace(year=today.year + 1)
@@ -117,6 +121,7 @@ class Record():
             return days_to_bday
 
     def add(record):
+        
         return {record.name.value: record}
 
     def edit(self, parameter, new_value):
